@@ -11,13 +11,16 @@ LAB SECTION: D02
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#include <time.h>
 #include <unistd.h> //getopt
 
 #include "error.h"
 #include "landscape.h"
 #include "rocketship.h"
 
-const char sketchpad_exec[] = "java -jar Sketchpad.jar -d";
+#define FRAME_LENGTH .05
+
+const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
 
 int main(int argc, char* argv[]){
   FILE *sketchpad_stream;
@@ -50,9 +53,15 @@ int main(int argc, char* argv[]){
 	break;
     }
   }
-  //TODO Get spawn coordinates from landscape.
   int max_x = get_max_x();
-  draw_rocketship(sketchpad_stream, max_x/2 , 20); 
+  init_rocketship(gravity, max_x/2, 20);
+  draw_rocketship(sketchpad_stream, 0, 0, 0);
 
-  //sleep(60);
-}
+  int alive = 1;
+  while (alive){
+    time_t start_time;
+    time(&start_time);
+  }
+
+    sleep(60);
+  }

@@ -59,7 +59,6 @@ void draw_landscape(FILE *sketchpad_stream, char *input_file){
     fprintf(sketchpad_stream, " %lu\n", landscape.points[i+1].y);
   }
   fflush(sketchpad_stream);
-  fprintf(sketchpad_stream, "pause 5\n");
 }
 
 int get_max_x(){
