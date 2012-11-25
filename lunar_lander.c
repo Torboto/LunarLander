@@ -21,7 +21,8 @@ LAB SECTION: D02
 #include "rocketship.h"
 
 /* in microseconds */
-#define FRAME_DURATION 50000
+//#define FRAME_DURATION 50000
+
 
 const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
 FILE *sketchpad_stream;
@@ -69,7 +70,8 @@ void run_flight(){
     gettimeofday(&cur_time, NULL);
     dt = cur_time.tv_usec - start_time.tv_usec;
     //printw("%8lld", FRAME_DURATION - dt);
-    usleep(FRAME_DURATION - dt);
+    //usleep(FRAME_DURATION - dt);
+    usleep(50000000);
   }
 }
 
