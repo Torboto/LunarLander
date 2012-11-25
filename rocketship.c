@@ -14,7 +14,7 @@ LAB SECTION: D02
 
 #include "error.h"
 
-#define FRAME_LENGTH 20
+#define FRAME_LENGTH 0.05
 int gravity;
 int thrust;
 int right_rotation;
@@ -35,9 +35,9 @@ struct rocketship{
 void velocity(){
   rocketship.y_midpoint = rocketship.y_midpoint + 
     rocketship.velocity * 
-    (1/FRAME_LENGTH + 1/2) * 
+    (FRAME_LENGTH + 1/2) * 
     gravity *
-    1/FRAME_LENGTH * 1/FRAME_LENGTH;
+    FRAME_LENGTH * FRAME_LENGTH;
   rocketship.velocity = rocketship.velocity + (gravity * FRAME_LENGTH);
 }
 
