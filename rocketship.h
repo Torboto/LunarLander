@@ -7,7 +7,6 @@ LECTURE SECTION: A2
 TA: Aleksander Micic
 LAB SECTION: D02
 ---------------------------------------------------------------------------*/
-#define FRAME_LENGTH .5
 
 void init_rocketship(int gravity, int x_midpoint, int y_midpoint);
 

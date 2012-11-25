@@ -67,9 +67,8 @@ void run_flight(){
 
     draw_rocketship(sketchpad_stream, thrust, right, left);
     gettimeofday(&cur_time, NULL);
-    //printw("%lld\n", (long long) cur_time.tv_usec);
     dt = cur_time.tv_usec - start_time.tv_usec;
-    printw("%8lld", FRAME_DURATION - dt);
+    //printw("%8lld", FRAME_DURATION - dt);
     usleep(FRAME_DURATION - dt);
   }
 }

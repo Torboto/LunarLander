@@ -11,6 +11,9 @@ LAB SECTION: D02
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#include <math.h>
+
+#include <ncurses.h>
 
 #include "error.h"
 
@@ -26,19 +29,20 @@ struct point{
 //Rocketship points are relational to the midpoint of the ship.
 struct rocketship{
   int point_count;
-  int velocity;
+  float velocity;
   int x_midpoint;
   int y_midpoint;
   struct point points[4];
 } rocketship;
 
 void velocity(){
-  rocketship.y_midpoint = rocketship.y_midpoint + 
+  rocketship.y_midpoint = lround(rocketship.y_midpoint + 
     rocketship.velocity * 
     (FRAME_LENGTH + 1/2) * 
     gravity *
-    FRAME_LENGTH * FRAME_LENGTH;
+    FRAME_LENGTH * FRAME_LENGTH);
   rocketship.velocity = rocketship.velocity + (gravity * FRAME_LENGTH);
+  fprintf(stderr, "VEL: %f", rocketship.velocity + (gravity * FRAME_LENGTH));
 }
 
 int rotate_right(){
@@ -115,4 +119,7 @@ void draw_rocketship(
 	rocketship.y_midpoint + rocketship.points[i+1].y);
   }
   fflush(sketchpad_stream);
+  right_rotation = 0;
+  left_rotation = 0;
+  thrust = 0;
 }
