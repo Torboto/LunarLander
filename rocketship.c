@@ -14,6 +14,11 @@ LAB SECTION: D02
 
 #include "error.h"
 
+#define FRAME_LENGTH .5
+int gravity;
+int thrust;
+int right_rotation;
+int left_rotation;
 struct point{
   int x,y;
 };
@@ -21,32 +26,38 @@ struct point{
 //Rocketship points are relational to the midpoint of the ship.
 struct rocketship{
   int point_count;
-  int gravity;
-  int thrust;
-  int right_rotation;
-  int left_rotation;
+  int velocity;
   int x_midpoint;
   int y_midpoint;
   struct point points[4];
 } rocketship;
 
-int velocity(int gravity, int thrust){
-  return 0;
+void velocity(){
+  printf("Old_V: %d\n", rocketship.velocity);
+  rocketship.y_midpoint = (rocketship.y_midpoint + rocketship.velocity) * 
+    (FRAME_LENGTH + .5) * 
+    gravity *
+    FRAME_LENGTH * FRAME_LENGTH;
+  rocketship.velocity = rocketship.velocity + (gravity * FRAME_LENGTH);
+  printf("New_V: %d\n", rocketship.velocity);
 }
 
 int rotate_right(){
+  //10 degrees
   return 0;
 }
 
 int rotate_left(){
+  //355 degrees
   return 0;
 }
 
 void init_rocketship(int gravity, int x_midpoint, int y_midpoint){
-  rocketship.gravity = gravity;
-  rocketship.thrust = 0;
-  rocketship.right_rotation = 0;
-  rocketship.left_rotation = 0;
+  gravity = gravity;
+  right_rotation = 0;
+  left_rotation = 0;
+  thrust = 0;
+  rocketship.velocity = 0;
   rocketship.x_midpoint = x_midpoint;
   rocketship.y_midpoint = y_midpoint;
   rocketship.point_count = 4;
@@ -71,7 +82,15 @@ void draw_rocketship(
     int thrust, 
     int right_rotation, 
     int left_rotation){
-  
+
+  //velocity();
+  if (right_rotation){
+    //rotate_right();
+  }
+  else if (left_rotation){
+    //rotate_left();
+  }
+
   for(int i = 0; i < rocketship.point_count - 1; i++){
     fprintf(sketchpad_stream, "eraseSegment");
     fprintf(sketchpad_stream, " %d", 
