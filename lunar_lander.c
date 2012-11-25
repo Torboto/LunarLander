@@ -20,7 +20,8 @@ LAB SECTION: D02
 #include "landscape.h"
 #include "rocketship.h"
 
-#define FRAMERATE 20
+/* in microseconds */
+#define FRAME_DURATION 50000
 
 const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
 FILE *sketchpad_stream;
@@ -36,7 +37,7 @@ void run_flight(){
     int left = 0;
     struct timeval start_time, cur_time;
     long dt;
-    //time_t start_time, cur_time;
+    
     gettimeofday(&start_time, NULL);
 
     nodelay(stdscr, TRUE);
@@ -64,14 +65,12 @@ void run_flight(){
 	break;
     }
 
-    //time(&start_time);
-    //printw("%d TO ", (long long) start_time.tv_usecs);
     draw_rocketship(sketchpad_stream, thrust, right, left);
-    //time(&cur_time);
     gettimeofday(&cur_time, NULL);
-    printw("%lld\n", (long long) cur_time.tv_usec);
+    //printw("%lld\n", (long long) cur_time.tv_usec);
     dt = cur_time.tv_usec - start_time.tv_usec;
-    usleep(200);
+    printw("%8lld", FRAME_DURATION - dt);
+    usleep(FRAME_DURATION - dt);
   }
 }
 

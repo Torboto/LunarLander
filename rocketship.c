@@ -14,7 +14,7 @@ LAB SECTION: D02
 
 #include "error.h"
 
-#define FRAME_LENGTH .5
+#define FRAME_LENGTH 20
 int gravity;
 int thrust;
 int right_rotation;
@@ -33,13 +33,12 @@ struct rocketship{
 } rocketship;
 
 void velocity(){
-  printf("Old_V: %d\n", rocketship.velocity);
-  rocketship.y_midpoint = (rocketship.y_midpoint + rocketship.velocity) * 
-    (FRAME_LENGTH + .5) * 
+  rocketship.y_midpoint = rocketship.y_midpoint + 
+    rocketship.velocity * 
+    (1/FRAME_LENGTH + 1/2) * 
     gravity *
-    FRAME_LENGTH * FRAME_LENGTH;
+    1/FRAME_LENGTH * 1/FRAME_LENGTH;
   rocketship.velocity = rocketship.velocity + (gravity * FRAME_LENGTH);
-  printf("New_V: %d\n", rocketship.velocity);
 }
 
 int rotate_right(){
@@ -83,7 +82,6 @@ void draw_rocketship(
     int right_rotation, 
     int left_rotation){
 
-  //velocity();
   if (right_rotation){
     //rotate_right();
   }
@@ -102,6 +100,8 @@ void draw_rocketship(
     fprintf(sketchpad_stream, " %d\n", 
 	rocketship.y_midpoint + rocketship.points[i+1].y);
   }
+
+  velocity();
 
   for(int i = 0; i < rocketship.point_count - 1; i++){
     fprintf(sketchpad_stream, "drawSegment");
