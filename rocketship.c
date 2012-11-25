@@ -54,5 +54,4 @@ void draw_rocketship(FILE *sketchpad_stream, int x_midpoint, int y_midpoint){
   }
   fflush(sketchpad_stream);
   fprintf(sketchpad_stream, "pause 5\n");
-  fprintf(sketchpad_stream, "end\n");
 }

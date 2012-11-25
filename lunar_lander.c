@@ -41,7 +41,7 @@ int main(int argc, char* argv[]){
 	thrust = atoi(optarg);
 	break;
       case 'f':
-	build_landscape(sketchpad_stream, optarg);
+	draw_landscape(sketchpad_stream, optarg);
 	break;
       case '?':
 	die("-g: takes integer for gravity \n"
@@ -51,7 +51,8 @@ int main(int argc, char* argv[]){
     }
   }
   //TODO Get spawn coordinates from landscape.
-  draw_rocketship(sketchpad_stream, 100, 100); 
+  int max_x = get_max_x();
+  draw_rocketship(sketchpad_stream, max_x/2 , 20); 
 
   //sleep(60);
 }

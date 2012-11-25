@@ -8,6 +8,6 @@ TA: Aleksander Micic
 LAB SECTION: D02
 ---------------------------------------------------------------------------*/
 
-void build_landscape(FILE *sketchpad_pipe, char *input_file);
+void draw_landscape(FILE *sketchpad_stream, char *input_file);
 
-int get_rocketship_spawnpoint();
+int get_max_x();
