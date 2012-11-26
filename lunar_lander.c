@@ -24,9 +24,10 @@ LAB SECTION: D02
 /* in microseconds */
 #define FRAME_DURATION 50000
 
+extern int usleep(int usec);
 extern FILE *popen(const char *command, const char *type); 
-extern int pclose(FILE *stream); 
-extern int usleep(useconds_t usec);
+extern int pclose(FILE *stream);
+extern char *optarg;
 extern int getopt(int argc, char * const argv[], const char *optstring);
 
 const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
