@@ -125,13 +125,13 @@ void draw_rocketship(
 
   for(int i = 0; i < ship.point_count - 1; i++){
     fprintf(sketchpad_stream, "eraseSegment");
-    fprintf(sketchpad_stream, " %d", 
+    fprintf(sketchpad_stream, " %ld", 
 	lround(ship.x_midpoint + ship.points[i].x));
-    fprintf(sketchpad_stream, " %d", 
+    fprintf(sketchpad_stream, " %ld", 
 	lround(ship.y_midpoint + ship.points[i].y));
-    fprintf(sketchpad_stream, " %d", 
+    fprintf(sketchpad_stream, " %ld", 
 	lround(ship.x_midpoint + ship.points[i+1].x));
-    fprintf(sketchpad_stream, " %d\n", 
+    fprintf(sketchpad_stream, " %ld\n", 
 	lround(ship.y_midpoint + ship.points[i+1].y));
   }
 
@@ -143,13 +143,13 @@ void draw_rocketship(
 
   for(int i = 0; i < ship.point_count - 1; i++){
     fprintf(sketchpad_stream, "drawSegment");
-    fprintf(sketchpad_stream, " %d", 
+    fprintf(sketchpad_stream, " %ld", 
 	lround(ship.x_midpoint + ship.points[i].x));
-    fprintf(sketchpad_stream, " %d", 
+    fprintf(sketchpad_stream, " %ld", 
 	lround(ship.y_midpoint + ship.points[i].y));
-    fprintf(sketchpad_stream, " %d", 
+    fprintf(sketchpad_stream, " %ld", 
 	lround(ship.x_midpoint + ship.points[i+1].x));
-    fprintf(sketchpad_stream, " %d\n", 
+    fprintf(sketchpad_stream, " %ld\n", 
 	lround(ship.y_midpoint + ship.points[i+1].y));
   }
   fflush(sketchpad_stream);
