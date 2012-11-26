@@ -57,10 +57,10 @@ void rotate(int right, int left){
     int x = rocketship.points[i].x;
     int y = rocketship.points[i].y;
 
-    int rotated_x = x * cos(rotate_radian) - y * sin(rotate_radian);
-    int rotated_y = x * sin(rotate_radian) + y * cos(rotate_radian);
-    rocketship.points[i].x = rotated_x;
-    rocketship.points[i].y = rotated_y;
+    double rotated_x = x * cos(rotate_radian) - y * sin(rotate_radian);
+    double rotated_y = x * sin(rotate_radian) + y * cos(rotate_radian);
+    rocketship.points[i].x = lround(rotated_x);
+    rocketship.points[i].y = lround(rotated_y);
     fprintf(stderr, "X%dY%d ", rotated_x, rotated_y);
   }
 
