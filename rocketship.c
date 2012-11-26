@@ -16,33 +16,20 @@ LAB SECTION: D02
 #include <ncurses.h>
 
 #include "error.h"
+#include "rocketship.h"
 
 #define FRAME_DURATION 0.05
 #define PI acos(-1.0)
 //#define FRAME_DURATION 1
 
 int Gravity;
-int Angle;
 
-struct point{
-  float x,y;
-};
-
-//Rocketship points are relational to the midpoint of the ship.
-struct rocketship{
-  int point_count;
-  float x_velocity;
-  float y_velocity;
-  int thrust;
-  float x_midpoint;
-  float y_midpoint;
-  struct point points[4];
-} ship;
+struct rocketship ship;
 
 void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint){
   Gravity = gravity;
-  Angle = 90;
-  ship.thrust = thrust;
+  ship.angle = 90;
+  ship.thrust = -thrust;
   ship.x_velocity = 0;
   ship.y_velocity = 0;
   ship.x_midpoint = x_midpoint;
@@ -53,12 +40,15 @@ void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint){
   point.x = 0;
   point.y = -10;
   ship.points[0] = point;
+
   point.x = -10;
   point.y = 10;
   ship.points[1] = point;
+
   point.x = 10;
   point.y = 10;
   ship.points[2] = point;
+
   point.x = 0;
   point.y = -10;
   ship.points[3] = point;
@@ -67,12 +57,12 @@ void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint){
 void velocity(int thrust){
   float x_acc;
   float y_acc;
-  float angle_radian = (Angle * PI) / 180;
-  //fprintf(stderr, "%d ", Angle);
+  float angle_radian = (ship.angle * PI) / 180;
+  //fprintf(stderr, "%d ", ship.angle);
 
   if (thrust){
     x_acc = ship.thrust * cos(angle_radian);
-    y_acc = -ship.thrust + Gravity * sin(angle_radian);
+    y_acc = Gravity + -ship.thrust * sin(angle_radian);
 
   } else {
     x_acc = 0;
@@ -95,10 +85,16 @@ void rotate(int right, int left){
   double rotate_radian;
   if (right){
     rotate_radian = (10 * PI) / 180;
-    Angle -= 10;
+    ship.angle -= 10;
+    if (ship.angle == -10){
+      ship.angle = 355;
+    }
   } else if (left){
     rotate_radian = (-10 * PI) / 180;
-    Angle += 10;
+    ship.angle += 10;
+    if (ship.angle == 365){
+      ship.angle = 0;
+    }
   }
   for(int i = 0; i < ship.point_count; i++){
     float x = ship.points[i].x;
