@@ -27,7 +27,9 @@ LAB SECTION: D02
 const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
 FILE *sketchpad_stream;
 int gravity, thrust;
-WINDOW *win;
+
+int collision_check(struct point *ship, struct point *landscape){
+}
 
 void run_flight(){
   int alive = 1;

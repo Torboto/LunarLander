@@ -23,6 +23,7 @@ LAB SECTION: D02
 
 int Gravity;
 int Angle;
+
 struct point{
   float x,y;
 };
@@ -67,7 +68,7 @@ void velocity(int thrust){
   float x_acc;
   float y_acc;
   float angle_radian = (Angle * PI) / 180;
-  fprintf(stderr, "%d ", Angle);
+  //fprintf(stderr, "%d ", Angle);
 
   if (thrust){
     x_acc = ship.thrust * cos(angle_radian);

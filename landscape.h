@@ -11,3 +11,4 @@ LAB SECTION: D02
 void draw_landscape(FILE *sketchpad_stream, char *input_file);
 
 int get_max_x();
+
