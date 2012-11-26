@@ -24,7 +24,7 @@ LAB SECTION: D02
 int gravity;
 int thrusting;
 struct point{
-  int x,y;
+  float x,y;
 };
 
 //Rocketship points are relational to the midpoint of the ship.
@@ -32,8 +32,8 @@ struct rocketship{
   int point_count;
   float velocity;
   int thrust;
-  int x_midpoint;
-  int y_midpoint;
+  float x_midpoint;
+  float y_midpoint;
   struct point points[4];
 } rocketship;
 
@@ -54,14 +54,14 @@ void rotate(int right, int left){
     rotate_radian = (-10 * PI) / 180;
   }
   for(int i = 0; i < rocketship.point_count; i++){
-    int x = rocketship.points[i].x;
-    int y = rocketship.points[i].y;
+    float x = rocketship.points[i].x;
+    float y = rocketship.points[i].y;
 
-    double rotated_x = x * cos(rotate_radian) - y * sin(rotate_radian);
-    double rotated_y = x * sin(rotate_radian) + y * cos(rotate_radian);
-    rocketship.points[i].x = lround(rotated_x);
-    rocketship.points[i].y = lround(rotated_y);
-    fprintf(stderr, "X%dY%d ", rotated_x, rotated_y);
+    float rotated_x = x * cos(rotate_radian) - y * sin(rotate_radian);
+    float rotated_y = x * sin(rotate_radian) + y * cos(rotate_radian);
+    rocketship.points[i].x = (rotated_x);
+    rocketship.points[i].y = (rotated_y);
+    fprintf(stderr, "X%fY%f ", rotated_x, rotated_y);
   }
 
 }
@@ -103,13 +103,13 @@ void draw_rocketship(
   for(int i = 0; i < rocketship.point_count - 1; i++){
     fprintf(sketchpad_stream, "eraseSegment");
     fprintf(sketchpad_stream, " %d", 
-	rocketship.x_midpoint + rocketship.points[i].x);
+	lround(rocketship.x_midpoint + rocketship.points[i].x));
     fprintf(sketchpad_stream, " %d", 
-	rocketship.y_midpoint + rocketship.points[i].y);
+	lround(rocketship.y_midpoint + rocketship.points[i].y));
     fprintf(sketchpad_stream, " %d", 
-	rocketship.x_midpoint + rocketship.points[i+1].x);
+	lround(rocketship.x_midpoint + rocketship.points[i+1].x));
     fprintf(sketchpad_stream, " %d\n", 
-	rocketship.y_midpoint + rocketship.points[i+1].y);
+	lround(rocketship.y_midpoint + rocketship.points[i+1].y));
   }
 
   velocity();
@@ -124,13 +124,13 @@ void draw_rocketship(
   for(int i = 0; i < rocketship.point_count - 1; i++){
     fprintf(sketchpad_stream, "drawSegment");
     fprintf(sketchpad_stream, " %d", 
-	rocketship.x_midpoint + rocketship.points[i].x);
+	lround(rocketship.x_midpoint + rocketship.points[i].x));
     fprintf(sketchpad_stream, " %d", 
-	rocketship.y_midpoint + rocketship.points[i].y);
+	lround(rocketship.y_midpoint + rocketship.points[i].y));
     fprintf(sketchpad_stream, " %d", 
-	rocketship.x_midpoint + rocketship.points[i+1].x);
+	lround(rocketship.x_midpoint + rocketship.points[i+1].x));
     fprintf(sketchpad_stream, " %d\n", 
-	rocketship.y_midpoint + rocketship.points[i+1].y);
+	lround(rocketship.y_midpoint + rocketship.points[i+1].y));
   }
   fflush(sketchpad_stream);
   right= 0;
