@@ -24,6 +24,10 @@ LAB SECTION: D02
 /* in microseconds */
 #define FRAME_DURATION 50000
 
+extern FILE *popen(const char *command, const char *type); 
+extern int pclose(FILE *stream); 
+extern int usleep(useconds_t usec);
+extern int getopt(int argc, char * const argv[], const char *optstring);
 
 const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
 FILE *sketchpad_stream;
@@ -67,11 +71,15 @@ void collision_check(){
 	    ship.y_midpoint, ship.points[1].y + ship.y_midpoint,
 	    ship.points[1].y + ship.y_midpoint,land_end.y);
 	    */
+	//mvprintw(12, 4,"X_VEL: %f\nY_VEL: %f\n", 
+	//ship.x_velocity, ship.y_velocity);
 	Alive = 0;
 	//check if land
-	  if (lround(ship.points[1].y + ship.y_midpoint) == land_begin.y && 
-	      lround(ship.points[2].y + ship.y_midpoint) == land_begin.y){
+	if (lround(ship.points[1].y + ship.y_midpoint) == land_begin.y && 
+	    lround(ship.points[2].y + ship.y_midpoint) == land_begin.y){
+	  if (ship.x_velocity < 10 && ship.y_velocity < 10){
 	    Win = 1;
+	  }
 	} else {
 	  Win = 0;
 	}
