@@ -21,7 +21,7 @@ LAB SECTION: D02
 #include "rocketship.h"
 
 /* in microseconds */
-//#define FRAME_DURATION 50000
+#define FRAME_DURATION 50000
 
 
 const char sketchpad_exec[] = "java -jar Sketchpad.jar ";
@@ -32,7 +32,7 @@ WINDOW *win;
 void run_flight(){
   int alive = 1;
   while (alive){
-    int keypress_value;
+    int keypress;
     int thrust = 0;
     int right = 0;
     int left = 0;
@@ -42,8 +42,9 @@ void run_flight(){
     gettimeofday(&start_time, NULL);
 
     nodelay(stdscr, TRUE);
-    keypress_value = getch();
-    switch (keypress_value){
+    keypress = getch();
+    
+    switch (keypress){
       case KEY_RIGHT:
 	right = 1;
 	break;
@@ -70,8 +71,11 @@ void run_flight(){
     gettimeofday(&cur_time, NULL);
     dt = cur_time.tv_usec - start_time.tv_usec;
     //printw("%8lld", FRAME_DURATION - dt);
-    //usleep(FRAME_DURATION - dt);
-    usleep(50000000);
+    if (dt > 0){
+      usleep(FRAME_DURATION - dt);
+      //DEBUG
+      //usleep(5000000);
+    }
   }
 }
 
@@ -106,12 +110,13 @@ int main(int argc, char* argv[]){
     }
   }
   int max_x = get_max_x();
-  init_rocketship(gravity, max_x/2, 20);
+  init_rocketship(gravity, thrust, max_x/2, 20);
   draw_rocketship(sketchpad_stream, 0, 0, 0);
   initscr();
   clear();
   noecho();
   cbreak();
+  keypad(stdscr, TRUE);
   char *directions = "Press any key to begin!\n"
     "    SPACEBAR to accelerate\n"
     "    LEFT/RIGHT arrows to rotate ship\n"

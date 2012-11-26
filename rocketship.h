@@ -8,7 +8,7 @@ TA: Aleksander Micic
 LAB SECTION: D02
 ---------------------------------------------------------------------------*/
 
-void init_rocketship(int gravity, int x_midpoint, int y_midpoint);
+void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint);
 
 void draw_rocketship(
     FILE *sketchpad_stream, 
@@ -16,3 +16,4 @@ void draw_rocketship(
     int right_rotation, 
     int left_rotation);
 
+int get_velocity();

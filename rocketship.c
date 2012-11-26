@@ -18,10 +18,11 @@ LAB SECTION: D02
 #include "error.h"
 
 #define FRAME_LENGTH 0.05
+#define PI acos(-1.0)
+//#define FRAME_LENGTH 1
+
 int gravity;
-int thrust;
-int right_rotation;
-int left_rotation;
+int thrusting;
 struct point{
   int x,y;
 };
@@ -30,36 +31,45 @@ struct point{
 struct rocketship{
   int point_count;
   float velocity;
+  int thrust;
   int x_midpoint;
   int y_midpoint;
   struct point points[4];
 } rocketship;
 
 void velocity(){
-  rocketship.y_midpoint = lround(rocketship.y_midpoint + 
-    rocketship.velocity * 
-    (FRAME_LENGTH + 1/2) * 
-    gravity *
-    FRAME_LENGTH * FRAME_LENGTH);
+  rocketship.y_midpoint = rocketship.y_midpoint + 
+    rocketship.velocity * FRAME_LENGTH +
+    1/2 * gravity * FRAME_LENGTH * FRAME_LENGTH;
   rocketship.velocity = rocketship.velocity + (gravity * FRAME_LENGTH);
-  fprintf(stderr, "VEL: %f", rocketship.velocity + (gravity * FRAME_LENGTH));
+  //fprintf(stderr, "VEL: %f", rocketship.velocity + (gravity * FRAME_LENGTH));
+  //fprintf(stderr, "YAXIS: %d", rocketship.y_midpoint);
 }
 
-int rotate_right(){
-  //10 degrees
-  return 0;
+void rotate(int right, int left){
+  double rotate_radian;
+  if (right){
+    rotate_radian = (10 * PI) / 180;
+  } else if (left){
+    rotate_radian = (-10 * PI) / 180;
+  }
+  for(int i = 0; i < rocketship.point_count - 1; i++){
+    int x = rocketship.points[i].x;
+    int y = rocketship.points[i].y;
+
+    double rotated_x = x * cos(rotate_radian) - y * sin(rotate_radian);
+    double rotated_y = x * sin(rotate_radian) + y * cos(rotate_radian);
+    rocketship.points[i].x = rotated_x;
+    rocketship.points[i].y = rotated_y;
+    fprintf(stderr, "B%dA%d ", rotate_radian, rotated_x);
+  }
+
 }
 
-int rotate_left(){
-  //355 degrees
-  return 0;
-}
 
-void init_rocketship(int gravity, int x_midpoint, int y_midpoint){
+void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint){
   gravity = gravity;
-  right_rotation = 0;
-  left_rotation = 0;
-  thrust = 0;
+  rocketship.thrust = thrust;
   rocketship.velocity = 0;
   rocketship.x_midpoint = x_midpoint;
   rocketship.y_midpoint = y_midpoint;
@@ -80,18 +90,15 @@ void init_rocketship(int gravity, int x_midpoint, int y_midpoint){
   rocketship.points[3] = point;
 }
 
+int get_velocity(){
+  return rocketship.velocity;
+}
+
 void draw_rocketship(
     FILE *sketchpad_stream, 
     int thrust, 
-    int right_rotation, 
-    int left_rotation){
-
-  if (right_rotation){
-    //rotate_right();
-  }
-  else if (left_rotation){
-    //rotate_left();
-  }
+    int right, 
+    int left){
 
   for(int i = 0; i < rocketship.point_count - 1; i++){
     fprintf(sketchpad_stream, "eraseSegment");
@@ -107,6 +114,13 @@ void draw_rocketship(
 
   velocity();
 
+  if (thrust){
+    //calc velocity
+  }
+  if (right == 1 || left == 1){
+    rotate(right, left);
+  }
+
   for(int i = 0; i < rocketship.point_count - 1; i++){
     fprintf(sketchpad_stream, "drawSegment");
     fprintf(sketchpad_stream, " %d", 
@@ -119,7 +133,7 @@ void draw_rocketship(
 	rocketship.y_midpoint + rocketship.points[i+1].y);
   }
   fflush(sketchpad_stream);
-  right_rotation = 0;
-  left_rotation = 0;
+  right= 0;
+  left= 0;
   thrust = 0;
 }
