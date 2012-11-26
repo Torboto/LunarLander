@@ -41,6 +41,7 @@ void run_flight(){
     
     gettimeofday(&start_time, NULL);
 
+    //printw("%d\n", keypress);
     nodelay(stdscr, TRUE);
     keypress = getch();
     
