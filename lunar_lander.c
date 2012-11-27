@@ -91,7 +91,8 @@ void collision_check(){
 }
 
 void border_check(){
-  if (ship.x_midpoint - 6 < 0){
+  if (ship.x_midpoint - 6 < 0 || 
+      ship.x_midpoint + 6 > landscape.points[landscape.point_count - 1].x){
     Alive = 0;
     Win = 0;
   }
@@ -136,6 +137,7 @@ void run_flight(){
     }
 
     draw_rocketship(sketchpad_stream, thrust, right, left);
+    border_check();
     collision_check();
     gettimeofday(&cur_time, NULL);
     dt = cur_time.tv_usec - start_time.tv_usec;
