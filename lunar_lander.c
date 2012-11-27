@@ -177,6 +177,7 @@ void run_flight(){
 
 int main(int argc, char* argv[]){
   int opt = 0;
+  char *input_file;
 
   if (argc != 7){
     die("-g: takes integer for gravity (Suggested value: 10) \n"
@@ -202,7 +203,7 @@ int main(int argc, char* argv[]){
 	}
 	break;
       case 'f':
-	draw_landscape(sketchpad_stream, optarg);
+	input_file = optarg;
 	break;
       case '?':
 	die("-g: takes integer for gravity \n"
@@ -212,6 +213,7 @@ int main(int argc, char* argv[]){
     }
   }
   sketchpad_stream = popen(sketchpad_exec, "w");
+  draw_landscape(sketchpad_stream, optarg);
   int max_x = get_max_x();
   init_rocketship(gravity, thrust, max_x/2, 20);
   draw_rocketship(sketchpad_stream, 0, 0, 0);
