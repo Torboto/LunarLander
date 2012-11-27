@@ -24,7 +24,7 @@ LAB SECTION: D02
 /* in microseconds */
 #define FRAME_DURATION 50000
 
-extern int usleep(int usec);
+//extern int usleep(int usec);
 extern FILE *popen(const char *command, const char *type); 
 extern int pclose(FILE *stream);
 extern char *optarg;
@@ -76,8 +76,8 @@ void collision_check(){
 	//ship.x_velocity, ship.y_velocity);
 	Alive = 0;
 	//check if land
-	if (lround(ship.points[1].y + ship.y_midpoint) == land_begin.y && 
-	    lround(ship.points[2].y + ship.y_midpoint) == land_begin.y){
+	if (lround(ship.points[6].y + ship.y_midpoint) == land_begin.y && 
+	    lround(ship.points[7].y + ship.y_midpoint) == land_end.y){
 	  if (ship.x_velocity < 10 && ship.y_velocity < 10){
 	    Win = 1;
 	  }

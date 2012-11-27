@@ -34,24 +34,44 @@ void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint){
   ship.y_velocity = 0;
   ship.x_midpoint = x_midpoint;
   ship.y_midpoint = y_midpoint;
-  ship.point_count = 4;
-
-  struct point point;
-  point.x = 0;
-  point.y = -10;
+  ship.point_count = 11;
+  //TOP TRIANGLE 
+   struct point point;
+  point.x = 5;
+  point.y = -5;
   ship.points[0] = point;
-
-  point.x = -10;
-  point.y = 10;
-  ship.points[1] = point;
-
-  point.x = 10;
-  point.y = 10;
-  ship.points[2] = point;
-
   point.x = 0;
-  point.y = -10;
+  point.y = -15;
+  ship.points[1] = point;
+  point.x = -5;
+  point.y = -5;
+  ship.points[2] = point;
+  point.x = 5;
+  point.y = -5;
   ship.points[3] = point;
+//BODY of ship
+  point.x = 5;
+  point.y = 10;
+  ship.points[4] = point;
+
+  point.x = 2;
+  point.y = 10;
+  ship.points[5] = point;
+  point.x = 5;
+  point.y = 15;
+  ship.points[6] = point;
+  point.x = -5;
+  point.y = 15;
+  ship.points[7] = point;
+  point.x = -2;
+  point.y = 10;
+  ship.points[8] = point;
+  point.x = -5;
+  point.y = 10;
+  ship.points[9] = point;
+  point.x = -5;
+  point.y = -5;
+  ship.points[10] = point;
 }
 
 void velocity(int thrust){

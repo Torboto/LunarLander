@@ -20,7 +20,7 @@ struct rocketship{
   int angle;
   float x_midpoint;
   float y_midpoint;
-  struct point points[4];
+  struct point points[11];
 };
 
 extern struct rocketship ship;
