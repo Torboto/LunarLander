@@ -192,12 +192,14 @@ int main(int argc, char* argv[]){
 	gravity = atoi(optarg);
 	if (atoi(optarg) < 0 || atoi(optarg) > 20){
 	  die("gravity > 0, < 20 not allowed\n");
+	  return 0;
 	}
 	break;
       case 't':
 	thrust = atoi(optarg);
 	if (atoi(optarg) > 0 || atoi(optarg) < -20){
 	  die("thrust > 0, < -20 not allowed\n");
+	  return 0;
 	}
 	break;
       case 'f':
