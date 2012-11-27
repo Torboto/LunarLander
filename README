@@ -1,3 +1,5 @@
 Implemented better command line argument checking/retrival with getopt.
 
+Improved ship design.
+
 

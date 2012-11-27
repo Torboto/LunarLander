@@ -90,6 +90,13 @@ void collision_check(){
   }
 }
 
+void border_check(){
+  if (ship.x_midpoint - 6 < 0){
+    Alive = 0;
+    Win = 0;
+  }
+}
+
 void run_flight(){
   Alive = 1;
   while (Alive){
