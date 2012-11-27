@@ -213,7 +213,7 @@ int main(int argc, char* argv[]){
     }
   }
   sketchpad_stream = popen(sketchpad_exec, "w");
-  draw_landscape(sketchpad_stream, optarg);
+  draw_landscape(sketchpad_stream, input_file);
   int max_x = get_max_x();
   init_rocketship(gravity, thrust, max_x/2, 20);
   draw_rocketship(sketchpad_stream, 0, 0, 0);
