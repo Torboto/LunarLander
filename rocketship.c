@@ -170,6 +170,15 @@ void rotate(int right, int left){
     ship.points[i].x = (rotated_x);
     ship.points[i].y = (rotated_y);
   }
+  for(int i = 0; i < fire.point_count; i++){
+    float x = fire.points[i].x;
+    float y = fire.points[i].y;
+
+    float rotated_x = x * cos(rotate_radian) - y * sin(rotate_radian);
+    float rotated_y = x * sin(rotate_radian) + y * cos(rotate_radian);
+    fire.points[i].x = (rotated_x);
+    fire.points[i].y = (rotated_y);
+  }
 
 }
 
