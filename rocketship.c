@@ -25,8 +25,53 @@ LAB SECTION: D02
 int Gravity;
 
 struct rocketship ship;
+struct fire{
+  int point_count;
+  struct point points[9];
+} fire;
+
+void init_fire(){
+  fire.point_count = 9;
+  struct point point;
+  /*
+  point.x = 0;
+  point.y = 15;
+  fire.points[0] = point;
+  point.x = 0;
+  point.y = 20;
+  fire.points[1] = point;
+ */ 
+     point.x = -5;
+  point.y = 15;
+  fire.points[0] = point;
+  point.x = -8;
+  point.y = 20;
+  fire.points[1] = point;
+  point.x = -4;
+  point.y = 17;
+  fire.points[2] = point;
+  point.x = -2;
+  point.y = 20;
+  fire.points[3] = point;
+  point.x = 0;
+  point.y = 17;
+  fire.points[4] = point;
+  point.x = 2;
+  point.y = 20;
+  fire.points[5] = point;
+  point.x = 4;
+  point.y = 17;
+  fire.points[6] = point;
+  point.x = 8;
+  point.y = 20;
+  fire.points[7] = point;
+  point.x = 5;
+  point.y = 15;
+  fire.points[8] = point;
+}
 
 void init_rocketship(int gravity, int thrust, int x_midpoint, int y_midpoint){
+  init_fire();
   Gravity = gravity;
   ship.angle = 90;
   ship.thrust = -thrust;
@@ -128,17 +173,38 @@ void rotate(int right, int left){
 
 }
 
-
-
 int get_velocity(){
   return ship.y_velocity;
 }
 
-void draw_rocketship(
-    FILE *sketchpad_stream, 
-    int thrust, 
-    int right, 
-    int left){
+void draw_fire(FILE *sketchpad_stream){
+  for(int i = 0; i < fire.point_count - 1; i++){
+    fprintf(sketchpad_stream, "drawSegment");
+    fprintf(sketchpad_stream, " %ld", 
+	lround(ship.x_midpoint + fire.points[i].x));
+    fprintf(sketchpad_stream, " %ld", 
+	lround(ship.y_midpoint + fire.points[i].y));
+    fprintf(sketchpad_stream, " %ld", 
+	lround(ship.x_midpoint + fire.points[i+1].x));
+    fprintf(sketchpad_stream, " %ld\n", 
+	lround(ship.y_midpoint + fire.points[i+1].y));
+  }
+}
+void erase_fire(FILE *sketchpad_stream){
+  for(int i = 0; i < fire.point_count - 1; i++){
+    fprintf(sketchpad_stream, "eraseSegment");
+    fprintf(sketchpad_stream, " %ld", 
+	lround(ship.x_midpoint + fire.points[i].x));
+    fprintf(sketchpad_stream, " %ld", 
+	lround(ship.y_midpoint + fire.points[i].y));
+    fprintf(sketchpad_stream, " %ld", 
+	lround(ship.x_midpoint + fire.points[i+1].x));
+    fprintf(sketchpad_stream, " %ld\n", 
+	lround(ship.y_midpoint + fire.points[i+1].y));
+  }
+}
+
+void draw_rocketship(FILE *sketchpad_stream, int thrust, int right, int left){
 
   for(int i = 0; i < ship.point_count - 1; i++){
     fprintf(sketchpad_stream, "eraseSegment");
@@ -151,9 +217,9 @@ void draw_rocketship(
     fprintf(sketchpad_stream, " %ld\n", 
 	lround(ship.y_midpoint + ship.points[i+1].y));
   }
+  erase_fire(sketchpad_stream);
 
   velocity(thrust);
-
   if (right == 1 || left == 1){
     rotate(right, left);
   }
@@ -169,8 +235,9 @@ void draw_rocketship(
     fprintf(sketchpad_stream, " %ld\n", 
 	lround(ship.y_midpoint + ship.points[i+1].y));
   }
+  if (thrust == 1){
+    draw_fire(sketchpad_stream);
+  }
+
   fflush(sketchpad_stream);
-  right= 0;
-  left= 0;
-  thrust = 0;
 }

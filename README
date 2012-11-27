@@ -2,6 +2,8 @@ Implemented better command line argument checking/retrival with getopt.
 
 Improved ship design.
 
+Added a fire effect when thrusters are activated.
+
 Set boundaries so ship cannot go past window edge on left/right.
 
 
