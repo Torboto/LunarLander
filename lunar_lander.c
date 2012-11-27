@@ -184,7 +184,6 @@ int main(int argc, char* argv[]){
 	"-f: filename of landscape file\n");
   }
 
-  sketchpad_stream = popen(sketchpad_exec, "w");
 
   while ((opt = getopt(argc, argv, "g:t:f:")) != -1){
     switch(opt){
@@ -212,6 +211,7 @@ int main(int argc, char* argv[]){
 	break;
     }
   }
+  sketchpad_stream = popen(sketchpad_exec, "w");
   int max_x = get_max_x();
   init_rocketship(gravity, thrust, max_x/2, 20);
   draw_rocketship(sketchpad_stream, 0, 0, 0);
