@@ -1,3 +1,6 @@
+Launch with:
+./lander -g 10 -t -20 -f landscape.txt
+
 Implemented better command line argument checking/retrival with getopt.
 
 Improved ship design.
